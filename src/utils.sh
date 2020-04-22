@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 function appcast_url {
   local cask_file="${1}"
 
@@ -54,6 +56,7 @@ function sha_change {
     clean
     abort "There was an error fetching ${cask_file}. Please check your connection and try again."
   fi
+
   downloaded_file=$(brew cask fetch "${cask_file}" 2>/dev/null | tail -1 | sed 's/==> Success! Downloaded to -> //')
   package_sha=$(shasum --algorithm 256 "${downloaded_file}" | awk '{ print $1 }')
 
