@@ -7,6 +7,9 @@ _setup_git() {
     git config --global user.email "${INPUT_COMMIT_USER_EMAIL:-action@github.com}"
 
     git remote set-url --push origin "${git_remote}"
+
+    echo "::debug::Git name: $(git config user.name)"
+    echo "::debug::Git email: $(git config user.email)"
 }
 
 _setup_git

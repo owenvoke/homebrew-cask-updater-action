@@ -28,6 +28,7 @@ function update() {
         modify_stanza 'version' "${cask_latest_version}" "${cask_file}"
         sha_change "${cask_file}"
 
+        echo "::debug::$(git diff)"
         commit_message="Update ${cask_name} from ${cask_current_version} to ${cask_latest_version}"
         git commit "${cask_file}" --message "${commit_message}" --quiet
 
