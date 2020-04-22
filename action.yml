@@ -1,0 +1,15 @@
+name: Homebrew Cask Updates
+description: Update cask versions automatically.
+input:
+  committer_name:
+    description: 'The name that commits will be created with'
+    required: false
+  committer_email:
+    description: 'The email that commits will be created with'
+    required: false
+branding:
+  icon: git-pull-request
+  color: purple
+runs:
+  using: docker
+  image: Dockerfile
