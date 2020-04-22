@@ -41,17 +41,17 @@ function modify_stanza {
   ' "${last_stanza_match}" "${stanza_start}" "${new_stanza_value}" "${ending_comma}" "${cask_file}"
 }
 
-function sha_change {
+function modify_sha_hash {
   local cask_sha_deliberatedly_unchecked downloaded_file package_sha cask_file
 
   cask_file="${1}"
 
-  echo "::debug::Checking if deliberately disabled"
+  echo "::debug:: - Checking if deliberately disabled"
   cask_sha_deliberatedly_unchecked="$(grep 'sha256 :no_check # required as upstream package is updated in-place' "${cask_file}")"
   [[ -n "${cask_sha_deliberatedly_unchecked}" ]] && return # Abort function if cask deliberately uses :no_check with a version
 
   # Set sha256 as :no_check temporarily, to prevent mismatch errors when fetching
-  echo "::debug::Setting ':no_check' temporarily"
+  echo "::debug:: - Setting ':no_check' temporarily"
   modify_stanza 'sha256' ':no_check' "${cask_file}"
 
   echo "::debug::Attempting to fetch cask"

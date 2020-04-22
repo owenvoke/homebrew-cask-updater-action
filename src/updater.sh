@@ -22,13 +22,13 @@ function update() {
       cask_latest_version="$(curl --silent "${cask_appcast_url}" | yq r - version)"
 
       if ! [[ "${cask_latest_version}" == "${cask_current_version}" ]]; then
-        echo "::debug::Cask '${cask_name}' is out of date"
+        echo "::debug:: - Cask '${cask_name}' is out of date"
 
-        echo "::debug::Updating '${cask_name}' from ${cask_current_version} to ${cask_latest_version}"
+        echo "::debug:: - Updating '${cask_name}' from ${cask_current_version} to ${cask_latest_version}"
         modify_stanza 'version' "${cask_latest_version}" "${cask_file}"
 
-        echo "::debug::Update sha256 value for the cask"
-        sha_change "${cask_file}"
+        echo "::debug:: - Update sha256 value for the cask"
+        modify_sha_hash "${cask_file}"
 
         echo "::debug::$(git diff)"
         commit_message="Update ${cask_name} from ${cask_current_version} to ${cask_latest_version}"
